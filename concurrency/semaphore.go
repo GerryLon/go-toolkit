@@ -5,7 +5,7 @@ type Semaphore struct {
 	channel chan struct{}
 }
 
-func New(concurrency int) *Semaphore {
+func NewSemaphore(concurrency int) *Semaphore {
 	return &Semaphore{channel: make(chan struct{}, concurrency), bufSize: concurrency}
 }
 

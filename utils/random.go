@@ -1,10 +1,28 @@
-package util
+package utils
 
-import "math/rand"
+import (
+	"github.com/GerryLon/go-toolkit/consts"
+	"math/rand"
+	"time"
+)
 
-func RandInt(min, max int) int {
-	if min >= max || min == 0 || max == 0 {
+func RandInt(min, max int) (result int) {
+	if min >= max {
 		return max
 	}
-	return rand.Intn(max-min + 1) + min
+	rand.Seed(time.Now().UnixNano())
+	return rand.Intn(max-min+1) + min
+}
+
+func RandStrCustom(source string, minLen, maxLen int) (result string) {
+	sourceLen := len(source)
+	targetLen := RandInt(minLen, maxLen)
+	if sourceLen == 0 || sourceLen < targetLen {
+		return source
+	}
+	return source[0:targetLen]
+}
+
+func RandStr(minLen, maxLen int) (result string) {
+	return RandStrCustom(consts.AllLettersAndNumbers, minLen, maxLen)
 }
